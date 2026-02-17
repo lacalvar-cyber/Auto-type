@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Auto Copy Random Word</title>
+<style>
+body{
+  font-family: Arial, sans-serif;
+  text-align:center;
+  margin-top:100px;
+}
+
+#source{
+  font-size:28px;
+  margin-bottom:15px;
+}
+
+#output{
+  font-size:28px;
+  font-weight:bold;
+  color:#000;
+}
+</style>
+</head>
+<body>
+
+<div id="source"></div>
+
+<div id="output"></div>
+
+<script>
+const source = document.getElementById("source");
+const output = document.getElementById("output");
+
+const observer = new MutationObserver(() => {
+  output.textContent = source.textContent;
+});
+
+observer.observe(source, {
+  childList: true,
+  subtree: true,
+  characterData: true
+});
+
+
+/* 
+  Demo random word generator.
+  Kung may sarili ka nang system na nagpapalit ng word,
+  pwede mo itong tanggalin.
+*/
+
+function randomString(length) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Magpapalit ng random word bawat 2 segundo
+setInterval(() => {
+  source.textContent = randomString(8);
+}, 2000);
+
+</script>
+
+</body>
+</html>
